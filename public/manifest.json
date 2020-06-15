@@ -1,0 +1,13 @@
+{
+  "name": "Loopring Pay",
+  "description": "Fast, free, and completely self-custodial ETH and ERC20 transfers.",
+  "icons": [
+    {
+      "src": "favicon.ico",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "./index.html",
+  "display": "standalone"
+}
