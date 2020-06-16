@@ -6,6 +6,7 @@ import { withRouter } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import clsx from 'clsx';
 import { Switcher, ROUTE_ICONS, ROUTE_LABELS, ROUTES } from './routes';
+import SetupAccount from 'components/SetupAccount';
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -13,42 +14,49 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function Component({ locationPathName }) {
+function Component({ locationPathName, account }) {
   const classes = useStyles();
 
   return (
     <div className={clsx('flex flex--column', classes.container)}>
-      <div className="mobile-nav-content">
-        <Switcher />
-      </div>
+      {!account ? (
+        <SetupAccount />
+      ) : (
+        <>
+          <div className="mobile-nav-content">
+            <Switcher />
+          </div>
 
-      <div className="mobile-nav flex flex-grow">
-        {ROUTE_ICONS.map((Icon, i) => {
-          const link = ROUTES[i];
-          const label = ROUTE_LABELS[i];
-          return (
-            <Link
-              to={link}
-              className={clsx(
-                'flex flex--column flex--grow flex--justify-center flex--align-center mobile-nav-icon',
-                { active: window.location.pathname === link }
-              )}
-              key={label}
-            >
-              <div>{<Icon color="inherit" />}</div>
-              <div>{label}</div>
-            </Link>
-          );
-        })}
-      </div>
+          <div className="mobile-nav flex flex-grow">
+            {ROUTE_ICONS.map((Icon, i) => {
+              const link = ROUTES[i];
+              const label = ROUTE_LABELS[i];
+              return (
+                <Link
+                  to={link}
+                  className={clsx(
+                    'flex flex--column flex--grow flex--justify-center flex--align-center mobile-nav-icon',
+                    { active: window.location.pathname === link }
+                  )}
+                  key={label}
+                >
+                  <div>{<Icon color="inherit" />}</div>
+                  <div>{label}</div>
+                </Link>
+              );
+            })}
+          </div>
+        </>
+      )}
     </div>
   );
 }
 
 export default withRouter(
-  connect(state => {
+  connect(({ wallet: { account } }) => {
     return {
       locationPathName: window.location.pathname,
+      account,
     };
   }, mapDispatchToProps)(Component)
 );

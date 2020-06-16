@@ -30,6 +30,15 @@
       rel="stylesheet"
     />
     <style media="screen">
+      :root {
+        --primary-color: #7aceff;
+        --dark: #212121;
+        /*
+        --primary-color: rgb(28, 96, 255);
+        --dark: #151618;
+        */
+      }
+
       html,
       body {
         height: 100%;
@@ -42,8 +51,13 @@
         margin: 0;
         padding: 0;
         font-family: 'Work Sans', Arial, sans-serif;
-        color: #404040;
+        color: var(--dark);
         background: white;
+      }
+
+      .dark body {
+        background: var(--dark);
+        color: white;
       }
 
       .anim-loading,
@@ -55,10 +69,6 @@
       .anim-loading body {
         display: flex;
         flex-direction: row;
-      }
-
-      .dark body {
-        background: #212121;
       }
 
       #loader-container {
@@ -74,8 +84,8 @@
         -webkit-animation: loader 1s infinite ease-in-out;
         animation-delay: -0.16s;
         -webkit-animation-delay: -0.16s;
-        background: #59b9f1;
-        color: #59b9f1;
+        background: var(--primary-color);
+        color: var(--primary-color);
         font-size: 6px;
         height: 20px;
         position: relative;
@@ -91,7 +101,7 @@
         -webkit-animation: loader 1s infinite ease-in-out;
         animation-delay: -0.32s;
         -webkit-animation-delay: -0.32s;
-        background: #59b9f1;
+        background: var(--primary-color);
         content: '';
         height: 20px;
         left: -1.5em;
@@ -105,7 +115,7 @@
         -webkit-animation: loader 1s infinite ease-in-out;
         animation-delay: 0.08s;
         -webkit-animation-delay: 0.08s;
-        background: #59b9f1;
+        background: var(--primary-color);
         content: '';
         height: 20px;
         left: 1.5em;

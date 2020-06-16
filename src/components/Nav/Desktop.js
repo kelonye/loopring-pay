@@ -7,6 +7,7 @@ import { Paper, Tabs, Tab } from '@material-ui/core';
 import { withRouter } from 'react-router-dom';
 import { Switcher, ROUTE_LABELS, ROUTES } from './routes';
 import { history } from 'utils/store';
+import SetupAccount from 'components/SetupAccount';
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -24,7 +25,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function Component({ locationPathName, match }) {
+function Component({ locationPathName, match, account }) {
   const classes = useStyles();
 
   let activeTab = ROUTES.indexOf(locationPathName);
@@ -37,39 +38,46 @@ function Component({ locationPathName, match }) {
   return (
     <div className={clsx('flex flex--justify-center', classes.container)}>
       <Paper className={clsx(classes.paper)}>
-        <div
-          className={clsx(
-            classes.paperHeading,
-            'flex',
-            'flex--grow',
-            'flex--align-center',
-            'flex--justify-center'
-          )}
-        >
-          <Tabs
-            value={activeTab}
-            indicatorColor="secondary"
-            textColor="inherit"
-            onChange={handleActiveTabChange}
-            aria-label="tabs"
-          >
-            {ROUTE_LABELS.map(label => (
-              <Tab className={classes.tab} key={label} {...{ label }} />
-            ))}
-          </Tabs>
-        </div>
-        <div className={classes.activeTabContent}>
-          <Switcher />
-        </div>
+        {!account ? (
+          <SetupAccount />
+        ) : (
+          <>
+            <div
+              className={clsx(
+                classes.paperHeading,
+                'flex',
+                'flex--grow',
+                'flex--align-center',
+                'flex--justify-center'
+              )}
+            >
+              <Tabs
+                value={activeTab}
+                indicatorColor="secondary"
+                textColor="inherit"
+                onChange={handleActiveTabChange}
+                aria-label="tabs"
+              >
+                {ROUTE_LABELS.map(label => (
+                  <Tab className={classes.tab} key={label} {...{ label }} />
+                ))}
+              </Tabs>
+            </div>
+            <div className={classes.activeTabContent}>
+              <Switcher />
+            </div>
+          </>
+        )}
       </Paper>
     </div>
   );
 }
 
 export default withRouter(
-  connect((state, { match }) => {
+  connect(({ wallet: { account } }, { match }) => {
     return {
       locationPathName: window.location.pathname,
+      account,
     };
   }, mapDispatchToProps)(Component)
 );

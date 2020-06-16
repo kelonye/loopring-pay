@@ -15,7 +15,14 @@ const useStyles = makeStyles(theme => ({
   container: {},
 }));
 
-function Component({ error, isLoaded, theme, isDark }) {
+function Component({
+  error,
+  isLoaded,
+  theme,
+  isDark,
+  account,
+  fetchAllExchangeInfo,
+}) {
   const classes = useStyles();
 
   React.useEffect(() => {
@@ -25,6 +32,10 @@ function Component({ error, isLoaded, theme, isDark }) {
       root.classList.add(isDark ? 'dark' : 'light');
     }
   }, [isDark]);
+
+  React.useEffect(() => {
+    fetchAllExchangeInfo();
+  }, []); // eslint-disable-line
 
   let pane;
   if (error) {
@@ -52,7 +63,6 @@ function Component({ error, isLoaded, theme, isDark }) {
 export default connect(state => {
   const {
     app: { isLoaded, error },
-    user,
   } = state;
   let err;
   if (error) {
@@ -62,7 +72,6 @@ export default connect(state => {
 
   return {
     isLoaded,
-    user,
     error: err,
     theme: themeSelector(state),
     isDark: isDarkSelector(state),

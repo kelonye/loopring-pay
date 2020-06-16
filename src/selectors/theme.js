@@ -6,8 +6,10 @@ export const isDarkSelector = createSelector(
   theme => theme === 'dark'
 );
 
-export const secondaryColorSelector = createSelector(isDarkSelector, isDark =>
-  isDark ? '#7aceff' : '#007cc3'
+export const secondaryColorSelector = createSelector(
+  isDarkSelector,
+  isDark => (isDark ? '#7aceff' : '#007cc3')
+  // 'rgb(28, 96, 255)'
 );
 
 export default createSelector(

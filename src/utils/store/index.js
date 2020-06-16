@@ -9,16 +9,16 @@ const storeCreator = asyncInitialState.middleware(getState =>
   loadStore.load(getState)
 );
 
-export const store = createStore(
-  reducer,
-  compose(applyMiddleware(thunk, storeCreator)) /// storeCreator should come last so dispatch works well i.e. returns promises
-);
-
 export const basename = '/';
 
 export const history = createBrowserHistory({ basename });
 
+export const store = createStore(
+  reducer(history),
+  compose(applyMiddleware(thunk, storeCreator)) /// storeCreator should come last so dispatch works well i.e. returns promises
+);
+
 window.shistory = history;
-window.sstore  = window.store = store;
+window.sstore = window.store = store;
 
 export default store;
