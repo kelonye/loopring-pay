@@ -13,7 +13,7 @@ import {
   SHOW_TRANSFER,
   SHOW_WECHAT_MODAL,
   SHOW_WITHDRAW,
-} from "redux/actions/ModalManager";
+} from 'actions/ModalManager';
 
 const initialState = {
   isRegisterAccountModalVisible: false,
@@ -23,11 +23,11 @@ const initialState = {
   isReferralModalVisible: false,
   isLoginModalVisible: false,
   isTransferModalVisible: false,
-  transferToken: "ETH",
+  transferToken: 'ETH',
   isDepositModalVisible: false,
-  depositToken: "ETH",
+  depositToken: 'ETH',
   isWithdrawModalVisible: false,
-  withdrawalToken: "ETH",
+  withdrawalToken: 'ETH',
   isLogoutModalVisible: false,
   isExportAccountModalVisible: false,
   isEnterPasswordModalVisible: false,
@@ -74,13 +74,13 @@ export const ModalManagerReducer = (state = initialState, action) => {
         return {
           ...state,
           isTransferModalVisible: action.payload.show,
-          transferToken: action.payload.token || "ETH",
+          transferToken: action.payload.token || 'ETH',
         };
       } else {
         return {
           ...state,
           isTransferModalVisible: action.payload.show,
-          transferToken: "ETH",
+          transferToken: 'ETH',
         };
       }
     }
@@ -89,13 +89,13 @@ export const ModalManagerReducer = (state = initialState, action) => {
         return {
           ...state,
           isDepositModalVisible: action.payload.show,
-          depositToken: action.payload.token || "ETH",
+          depositToken: action.payload.token || 'ETH',
         };
       } else {
         return {
           ...state,
           isDepositModalVisible: action.payload.show,
-          depositToken: "ETH",
+          depositToken: 'ETH',
         };
       }
     case SHOW_WITHDRAW:
@@ -103,13 +103,13 @@ export const ModalManagerReducer = (state = initialState, action) => {
         return {
           ...state,
           isWithdrawModalVisible: action.payload.show,
-          withdrawalToken: action.payload.token || "ETH",
+          withdrawalToken: action.payload.token || 'ETH',
         };
       } else {
         return {
           ...state,
           isWithdrawModalVisible: action.payload.show,
-          withdrawalToken: "ETH",
+          withdrawalToken: 'ETH',
         };
       }
     case SHOW_LOGOUT_MODAL:

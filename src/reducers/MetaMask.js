@@ -2,7 +2,7 @@ import {
   CONNECT_TO_METAMASK_COMPLETE,
   CONNECT_TO_META_MASK,
   DETECT_IF_META_MASK_INSTALLED,
-} from "redux/actions/MetaMask";
+} from 'actions/MetaMask';
 
 const initialState = {
   startConnecting: false,

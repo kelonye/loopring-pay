@@ -7,12 +7,12 @@ import {
   UPDATE_OPEN_ORDERS_OFFSET,
   UPDATE_SHOW_ALL_OPEN_ORDERS,
   UPDATE_SOCKET_ORDER,
-} from "redux/actions/MyOrders";
+} from 'actions/MyOrders';
 import {
   getShowAllOpenOrders,
   removeShowAllOpenOrders,
   saveShowAllOpenOrders,
-} from "lightcone/api/localStorgeAPI";
+} from 'lightcone/api/localStorgeAPI';
 
 const initialState = {
   // 'waiting', 'processing'
@@ -35,13 +35,13 @@ export const MyOrdersReducer = (state = initialState, action) => {
   switch (action.type) {
     case UPDATE_MY_OPEN_ORDERS: {
       const response = action.payload.response;
-      const orders = response["orders"];
+      const orders = response['orders'];
       orders.sort((a, b) => b.createdAt - a.createdAt);
       return {
         ...state,
         isOpenOrdersLoading: false,
         openOrders: orders,
-        openOrdersTotalNum: response["totalNum"],
+        openOrdersTotalNum: response['totalNum'],
       };
     }
     case UPDATE_SHOW_ALL_OPEN_ORDERS: {
@@ -76,8 +76,8 @@ export const MyOrdersReducer = (state = initialState, action) => {
       return {
         ...state,
         isHistoryOrdersLoading: false,
-        historyOrders: response["orders"],
-        historyOrdersTotalNum: response["totalNum"],
+        historyOrders: response['orders'],
+        historyOrdersTotalNum: response['totalNum'],
       };
     }
     case UPDATE_HISTORY_ORDERS_OFFSET: {
@@ -107,10 +107,8 @@ export const MyOrdersReducer = (state = initialState, action) => {
      */
     case UPDATE_SOCKET_ORDER:
       const order = action.payload.order;
-      if (order.status === "waiting" || order.status === "processing") {
-        const openOrders = state.openOrders.filter(
-          (o) => o.hash !== order.hash
-        );
+      if (order.status === 'waiting' || order.status === 'processing') {
+        const openOrders = state.openOrders.filter(o => o.hash !== order.hash);
         openOrders.push(order);
         openOrders.sort((a, b) => b.createdAt - a.createdAt);
         return {
@@ -118,16 +116,14 @@ export const MyOrdersReducer = (state = initialState, action) => {
           openOrders,
         };
       } else {
-        const openOrders = state.openOrders.filter(
-          (o) => o.hash !== order.hash
-        );
+        const openOrders = state.openOrders.filter(o => o.hash !== order.hash);
         let historyOrders = [];
         /**
          * 如果当前不在第一页，则不展示
          */
         if (state.historyOrdersOffset === 0) {
           historyOrders = state.historyOrders.filter(
-            (o) => o.hash !== order.hash
+            o => o.hash !== order.hash
           );
           historyOrders.unshift(order);
         } else historyOrders = state.historyOrders;

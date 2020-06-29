@@ -2,14 +2,14 @@ import { combineReducers } from 'redux';
 // import { connectRouter } from 'connected-react-router';
 
 // import { CmcPriceReducer } from './CmcPrice';
-// import { DexAccountReducer } from './DexAccount';
+import { DexAccountReducer } from './DexAccount';
 import { ExchangeInfoReducer } from './ExchangeInfo';
 // import { GasPriceReducer } from './GasPrice';
 // import { LayoutManagerReducer } from './LayoutManager';
 // import { LiquidityMiningReducer } from './LiquidityMining';
-// import { MetaMaskReducer } from './MetaMask';
+import { MetaMaskReducer } from './MetaMask';
 // import { ModalManagerReducer } from './ModalManager';
-// import { MyAccountPageReducer } from './MyAccountPage';
+import { MyAccountPageReducer } from './MyAccountPage';
 // import { MyOrderPageReducer } from './MyOrderPage';
 // import { MyOrdersReducer } from './MyOrders';
 // import { NonceReducer } from './Nonce';
@@ -51,12 +51,12 @@ const rootReducer = history =>
     // tradeHistory: TradeHistoryReducer,
     // ticker: TickerReducer,
     // modalManager: ModalManagerReducer,
-    // balances: MyAccountPageReducer,
+    balances: MyAccountPageReducer,
     // myOrders: MyOrdersReducer,
     // myOrderPage: MyOrderPageReducer,
-    // metaMask: MetaMaskReducer,
+    metaMask: MetaMaskReducer,
     // walletConnect: WalletConnectReducer,
-    // dexAccount: DexAccountReducer,
+    dexAccount: DexAccountReducer,
     // nonce: NonceReducer,
     // gasPrice: GasPriceReducer,
     // cmcPrice: CmcPriceReducer,

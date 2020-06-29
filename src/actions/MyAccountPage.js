@@ -1,29 +1,29 @@
-import { getBalances } from "lightcone/api/v1/balances";
+import { getBalances } from 'lightcone/api/v1/balances';
 
 import {
   getDepositHistory,
   getWithdrawalHistory,
-} from "lightcone/api/LightconeAPI";
+} from 'lightcone/api/LightconeAPI';
 
-import { getTransferHistory } from "lightcone/api/v1/transfer";
+import { getTransferHistory } from 'lightcone/api/v1/transfer';
 
-export const UPDATE_MY_BALANCES = "UPDATE_MY_BALANCES";
+export const UPDATE_MY_BALANCES = 'UPDATE_MY_BALANCES';
 
-export const UPDATE_BALANCE = "UPDATE_BALANCE";
+export const UPDATE_BALANCE = 'UPDATE_BALANCE';
 
-export const EMPTY_BALANCES = "EMPTY_BALANCES";
+export const EMPTY_BALANCES = 'EMPTY_BALANCES';
 
-export const UPDATE_DEPOSITS = "UPDATE_DEPOSITS";
-export const EMPTY_DEPOSITS = "EMPTY_DEPOSITS";
+export const UPDATE_DEPOSITS = 'UPDATE_DEPOSITS';
+export const EMPTY_DEPOSITS = 'EMPTY_DEPOSITS';
 
-export const UPDATE_WITHDRAWALS = "UPDATE_WITHDRAWALS";
-export const EMPTY_WITHDRAWALS = "EMPTY_WITHDRAWALS";
+export const UPDATE_WITHDRAWALS = 'UPDATE_WITHDRAWALS';
+export const EMPTY_WITHDRAWALS = 'EMPTY_WITHDRAWALS';
 
-export const UPDATE_TOKEN_FILTER = "UPDATE_TOKEN_FILTER";
-export const HIDE_LOW_BALANCE_ASSETS = "HIDE_LOW_BALANCE_ASSETS";
+export const UPDATE_TOKEN_FILTER = 'UPDATE_TOKEN_FILTER';
+export const HIDE_LOW_BALANCE_ASSETS = 'HIDE_LOW_BALANCE_ASSETS';
 
-export const UPDATE_TRANSFERS = "UPDATE_TRANSFERS";
-export const EMPTY_TRANSFERS = "EMPTY_TRANSFERS";
+export const UPDATE_TRANSFERS = 'UPDATE_TRANSFERS';
+export const EMPTY_TRANSFERS = 'EMPTY_TRANSFERS';
 
 export function emptyBalances() {
   return {
@@ -51,7 +51,7 @@ export function updateMyAccountPage(balances) {
 }
 
 export function fetchMyAccountPage(accountId, apiKey, tokens, skip, limit) {
-  return (dispatch) => {
+  return dispatch => {
     (async () => {
       try {
         const balances = await getBalances(
@@ -84,7 +84,7 @@ export function fetchDeposits(
   apiKey,
   tokens
 ) {
-  return (dispatch) => {
+  return dispatch => {
     (async () => {
       try {
         const response = await getDepositHistory(
@@ -123,7 +123,7 @@ export function fetchWithdrawals(
   apiKey,
   tokens
 ) {
-  return (dispatch) => {
+  return dispatch => {
     (async () => {
       try {
         const response = await getWithdrawalHistory(
@@ -187,7 +187,7 @@ export function fetchTransfers(
   apiKey,
   tokens
 ) {
-  return (dispatch) => {
+  return dispatch => {
     (async () => {
       try {
         const response = await getTransferHistory(

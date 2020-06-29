@@ -23,7 +23,7 @@ export function watchWeb3Changes() {
     });
     window.ethereum.on('accountsChanged', function(accounts) {
       const account = accounts[0];
-      store.dispatch(actions.updateAccount(account));
+      store.dispatch(actions.customUpdateAccount(account));
     });
   }
 }

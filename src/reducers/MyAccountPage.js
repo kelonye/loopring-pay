@@ -10,19 +10,19 @@ import {
   UPDATE_TOKEN_FILTER,
   UPDATE_TRANSFERS,
   UPDATE_WITHDRAWALS,
-} from "redux/actions/MyAccountPage";
+} from 'actions/MyAccountPage';
 
 import {
   getHideLowBalanceAssets,
   removeHideLowBalanceAssets,
   saveHideLowBalanceAssets,
-} from "lightcone/api/localStorgeAPI";
+} from 'lightcone/api/localStorgeAPI';
 
 const initialState = {
   balances: [],
   hideLowBalanceAssets: getHideLowBalanceAssets() ? true : false,
 
-  tokenFilter: "All",
+  tokenFilter: 'All',
 
   depositOffset: 0,
   depositLimit: 20,
@@ -50,7 +50,7 @@ export const MyAccountPageReducer = (state = initialState, action) => {
       const balance = action.payload.balance;
       const previousBalances = [...state.balances];
       const index = previousBalances.findIndex(
-        (ba) => ba.tokenId === balance.tokenId
+        ba => ba.tokenId === balance.tokenId
       );
       if (index !== -1) {
         previousBalances.splice(index, 1);

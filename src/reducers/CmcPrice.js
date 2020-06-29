@@ -1,19 +1,19 @@
-import { UPDATE_CMC_LEGAL, UPDATE_CMC_PRICE } from "redux/actions/CmcPrice";
-import { getCurrency } from "lightcone/api/localStorgeAPI";
+import { UPDATE_CMC_LEGAL, UPDATE_CMC_PRICE } from 'actions/CmcPrice';
+import { getCurrency } from 'lightcone/api/localStorgeAPI';
 
 const enInitialState = {
-  legal: "USD",
-  legalPrefix: "$",
+  legal: 'USD',
+  legalPrefix: '$',
   prices: [],
 };
 
 const zhInitialState = {
-  legal: "CNY",
-  legalPrefix: "¥",
+  legal: 'CNY',
+  legalPrefix: '¥',
   prices: [],
 };
 
-const initialState = getCurrency() === "CNY" ? zhInitialState : enInitialState;
+const initialState = getCurrency() === 'CNY' ? zhInitialState : enInitialState;
 
 export const CmcPriceReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -37,9 +37,9 @@ export const CmcPriceReducer = (state = initialState, action) => {
 };
 
 function getLegalPrefix(legal) {
-  if (legal === "CNY") {
-    return "¥";
+  if (legal === 'CNY') {
+    return '¥';
   } else {
-    return "$";
+    return '$';
   }
 }

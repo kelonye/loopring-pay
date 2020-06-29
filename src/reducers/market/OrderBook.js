@@ -1,12 +1,12 @@
-import BigNumber from "bignumber.js";
-import config from "lightcone/config";
+import BigNumber from 'bignumber.js';
+import config from 'lightcone/config';
 
 import {
   EMPTY_ORDER_BOOKS,
   UPDATE_ORDER_BOOKS,
   UPDATE_ORDER_BOOKS_LEVEL,
   UPDATE_SOCKET_ORDER_BOOKS,
-} from "redux/actions/market/OrderBook";
+} from 'actions/market/OrderBook';
 
 // Hack: initial State can not be empty. Empty
 const initialState = {
@@ -60,23 +60,23 @@ export const OrderBookReducer = (state = initialState, action) => {
       const endVersion = action.payload.endVersion;
       const market = action.payload.market;
       const configTokens = action.payload.configTokens;
-      const tokens = market.split("-");
+      const tokens = market.split('-');
       const baseToken = tokens[0];
 
       if (starVersion <= state.version + 1) {
         const bids = action.payload.buys;
         const asks = action.payload.sells;
-        const filteredBuys = bids.filter((slot) => slot.count > 0);
-        const filteredSells = asks.filter((slot) => slot.count > 0);
+        const filteredBuys = bids.filter(slot => slot.count > 0);
+        const filteredSells = asks.filter(slot => slot.count > 0);
 
-        state.sells.forEach((slot) => {
-          if (!asks.find((s) => s.price === slot.price)) {
+        state.sells.forEach(slot => {
+          if (!asks.find(s => s.price === slot.price)) {
             filteredSells.push(slot);
           }
         });
 
-        state.buys.forEach((slot) => {
-          if (!bids.find((s) => s.price === slot.price)) {
+        state.buys.forEach(slot => {
+          if (!bids.find(s => s.price === slot.price)) {
             filteredBuys.push(slot);
           }
         });

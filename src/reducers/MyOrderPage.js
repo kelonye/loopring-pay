@@ -7,10 +7,10 @@ import {
   UPDATE_MARKET_FILTER,
   UPDATE_SOCKET_ALL_ORDER,
   UPDATE_USER_TRANSACTIONS,
-} from "redux/actions/MyOrderPage";
+} from 'actions/MyOrderPage';
 
 const initialState = {
-  marketFilter: "All",
+  marketFilter: 'All',
 
   // 'waiting', 'processing'
   isOpenOrdersLoading: true,
@@ -37,15 +37,15 @@ export const MyOrderPageReducer = (state = initialState, action) => {
   switch (action.type) {
     case UPDATE_ALL_OPEN_ORDERS: {
       const payload = action.payload;
-      const orders = payload["orders"];
+      const orders = payload['orders'];
       orders.sort((a, b) => b.createdAt - a.createdAt);
       return {
         ...state,
         isOpenOrdersLoading: false,
         openOrders: orders,
-        openOrdersTotalNum: payload["totalNum"],
-        openOrdersLimit: payload["limit"],
-        openOrdersOffset: payload["offset"],
+        openOrdersTotalNum: payload['totalNum'],
+        openOrdersLimit: payload['limit'],
+        openOrdersOffset: payload['offset'],
       };
     }
 
@@ -64,10 +64,10 @@ export const MyOrderPageReducer = (state = initialState, action) => {
       return {
         ...state,
         isHistoryOrdersLoading: false,
-        historyOrders: response["orders"],
-        historyOrdersTotalNum: response["totalNum"],
-        historyOrdersLimit: response["limit"],
-        historyOrdersOffset: response["offset"],
+        historyOrders: response['orders'],
+        historyOrdersTotalNum: response['totalNum'],
+        historyOrdersLimit: response['limit'],
+        historyOrdersOffset: response['offset'],
       };
     }
     case EMPTY_ALL_HISTORY_ORDERS: {
@@ -91,10 +91,8 @@ export const MyOrderPageReducer = (state = initialState, action) => {
      */
     case UPDATE_SOCKET_ALL_ORDER:
       const order = action.payload.order;
-      if (order.status === "waiting" || order.status === "processing") {
-        const openOrders = state.openOrders.filter(
-          (o) => o.hash !== order.hash
-        );
+      if (order.status === 'waiting' || order.status === 'processing') {
+        const openOrders = state.openOrders.filter(o => o.hash !== order.hash);
         openOrders.push(order);
         openOrders.sort((a, b) => b.createdAt - a.createdAt);
         return {
@@ -102,16 +100,14 @@ export const MyOrderPageReducer = (state = initialState, action) => {
           openOrders,
         };
       } else {
-        const openOrders = state.openOrders.filter(
-          (o) => o.hash !== order.hash
-        );
+        const openOrders = state.openOrders.filter(o => o.hash !== order.hash);
         let historyOrders = [];
         /**
          * 如果当前不在第一页，则不展示
          */
         if (state.historyOrdersOffset === 0) {
           historyOrders = state.historyOrders.filter(
-            (o) => o.hash !== order.hash
+            o => o.hash !== order.hash
           );
           historyOrders.unshift(order);
         } else historyOrders = state.historyOrders;
@@ -130,10 +126,10 @@ export const MyOrderPageReducer = (state = initialState, action) => {
       return {
         ...state,
         isTransactionsLoading: false,
-        transactions: response["trades"],
-        transactionsTotalNum: response["totalNum"],
-        transactionsLimit: response["limit"],
-        transactionsOffset: response["offset"],
+        transactions: response['trades'],
+        transactionsTotalNum: response['totalNum'],
+        transactionsLimit: response['limit'],
+        transactionsOffset: response['offset'],
       };
     }
     case EMPTY_USER_TRANSACTIONS:

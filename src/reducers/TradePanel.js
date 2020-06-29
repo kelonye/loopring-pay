@@ -2,13 +2,13 @@ import {
   EMPTY_TRADE_FORM,
   UPDATE_PRICE,
   UPDATE_TRADE_TYPE,
-} from "redux/actions/TradePanel";
-import { UPDATE_AMOUNT } from "../actions/TradePanel";
+} from 'actions/TradePanel';
+import { UPDATE_AMOUNT } from '../actions/TradePanel';
 
 const initialState = {
-  tradeType: "buy",
-  amount: "",
-  price: "",
+  tradeType: 'buy',
+  amount: '',
+  price: '',
   updateOrderTotalReferenceCount: 0,
 };
 
@@ -16,7 +16,7 @@ export const TradePanelReducer = (state = initialState, action) => {
   switch (action.type) {
     case UPDATE_TRADE_TYPE:
       const tradeType = action.payload.tradeType;
-      if (tradeType === "buy" || tradeType === "sell") {
+      if (tradeType === 'buy' || tradeType === 'sell') {
         return {
           ...state,
           tradeType,
@@ -55,8 +55,8 @@ export const TradePanelReducer = (state = initialState, action) => {
     case EMPTY_TRADE_FORM:
       return {
         ...state,
-        amount: "",
-        price: "",
+        amount: '',
+        price: '',
       };
     default:
       return state;

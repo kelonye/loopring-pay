@@ -6,20 +6,25 @@ import Mobile from './BalancesMobile';
 import Loader from 'components/Loader';
 import { fetchWalletBalance } from 'modals/components/utils';
 
-const Component = ({ tokens, address, isMobile }) => {
+const Component = ({
+  tokens,
+  address,
+  isMobile,
+  balances: balancesOnLoopringList,
+}) => {
   const [balanceOnEthereumDict, setBalanceOnEthereumDict] = React.useState({});
   const [isBalancesLoading, setIsBalancesLoading] = React.useState({});
   const [searchInput, setSearchInput] = React.useState({});
 
-  console.log(tokens);
-  const balances = tokens.map(token => {
-    return {
-      token,
-      totalAmountInString: Number(0).toFixed(token.precision),
-      available: Number(0).toFixed(token.precision),
-      availableInAssetPanel: Number(0).toFixed(token.precision),
-    };
-  });
+  const balances = tokens.map(
+    token =>
+      balancesOnLoopringList.find(ba => ba.token.tokenId === token.tokenId) || {
+        token,
+        totalAmountInString: Number(0).toFixed(token.precision),
+        available: Number(0).toFixed(token.precision),
+        availableInAssetPanel: Number(0).toFixed(token.precision),
+      }
+  );
 
   const loadBalances = async () => {
     try {
@@ -66,7 +71,7 @@ export default connect(
     app: { isMobile },
     wallet: { account: address },
     dexAccount,
-    balances,
+    balances: { balances },
     exchange,
   }) => {
     return {

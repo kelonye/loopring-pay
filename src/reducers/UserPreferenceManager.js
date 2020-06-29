@@ -1,11 +1,11 @@
-import { DarkThemeEN, DarkThemeZH } from "styles/DarkTheme";
-import { LiteThemeEN, LiteThemeZH } from "styles/LiteTheme";
+import { DarkThemeEN, DarkThemeZH } from 'styles/DarkTheme';
+import { LiteThemeEN, LiteThemeZH } from 'styles/LiteTheme';
 
 import {
   SELECT_CURRENCY,
   SELECT_LANGUAGE,
   SELECT_THEME,
-} from "redux/actions/UserPreferenceManager";
+} from 'actions/UserPreferenceManager';
 import {
   getCurrency,
   getLanguage,
@@ -13,8 +13,8 @@ import {
   saveCurrency,
   saveLanguage,
   saveThemeName,
-} from "lightcone/api/localStorgeAPI";
-import i18n from "../../i18n";
+} from 'lightcone/api/localStorgeAPI';
+import i18n from '../../i18n';
 
 const language = getLanguage();
 const currency = getCurrency();
@@ -23,19 +23,19 @@ const themeName = getThemeName();
 const getAutoThemeName = () => {
   const hours = new Date().getHours();
   const isDayTime = hours > 6 && hours < 20;
-  return isDayTime ? "light" : "dark";
+  return isDayTime ? 'light' : 'dark';
 };
 
 const selectTheme = (language, themeName) => {
   var themeName_ = themeName;
-  if (themeName === "auto") {
+  if (themeName === 'auto') {
     themeName_ = getAutoThemeName();
   }
-  return themeName_ === "dark"
-    ? language === "zh"
+  return themeName_ === 'dark'
+    ? language === 'zh'
       ? DarkThemeZH
       : DarkThemeEN
-    : language === "zh"
+    : language === 'zh'
     ? LiteThemeZH
     : LiteThemeEN;
 };
