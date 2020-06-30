@@ -5,6 +5,7 @@ import Desktop from './BalancesDesktop';
 import Mobile from './BalancesMobile';
 import Loader from 'components/Loader';
 import { fetchWalletBalance } from 'modals/components/utils';
+// import { add } from 'lodash';
 
 const Component = ({
   tokens,
@@ -14,7 +15,7 @@ const Component = ({
 }) => {
   const [balanceOnEthereumDict, setBalanceOnEthereumDict] = React.useState({});
   const [isBalancesLoading, setIsBalancesLoading] = React.useState({});
-  const [searchInput, setSearchInput] = React.useState({});
+  // const [searchInput, setSearchInput] = React.useState({});
 
   const balances = tokens.map(
     token =>

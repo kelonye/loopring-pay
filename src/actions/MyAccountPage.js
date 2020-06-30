@@ -63,7 +63,7 @@ export function fetchMyAccountPage(accountId, apiKey, tokens, skip, limit) {
         );
         dispatch(updateMyAccountPage(balances));
       } catch (error) {
-        // console.log(error);
+        console.log(error);
       }
     })();
   };

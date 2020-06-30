@@ -12,12 +12,11 @@ import {
 } from '@material-ui/core';
 import LightIcon from '@material-ui/icons/Brightness7';
 import DarkIcon from '@material-ui/icons/Brightness4';
-import UserIcon from '@material-ui/icons/AccountCircle';
 import { isDarkSelector } from 'selectors/theme';
 import { APP_TITLE } from 'config';
-import { LOGGED_IN, RESETTING } from 'actions/DexAccount';
-import { lightconeGetAccount } from 'lightcone/api/LightconeAPI';
+import { LOGGED_IN } from 'actions/DexAccount';
 import ETHAvatar from 'ethereum-identicon';
+import sl from 'utils/sl';
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -36,96 +35,47 @@ const useStyles = makeStyles(theme => ({
 function Component({
   toggleTheme,
   isDark,
-  exchangeAddress,
-  dexAccount,
   address,
-  updateAccount,
-  activateWallet,
+  dexAccount,
   isMobile,
+  logoutAll,
 }) {
   const classes = useStyles();
-  const isLoggedIn = Boolean(address);
-  const { account } = dexAccount;
+  const isLoggedIn = dexAccount.account.state === LOGGED_IN;
+  const disconnect = () => {
+    sl('warning', 'Disconnect from Loopring?', 'Warning', () => {
+      // If it's WalletConnect, close provider session.
+      // so that next time it will require QR code.
+      console.log('LogoutModal', window.wallet);
 
-  const disconnect = async () => {};
-
-  const connect = async () => {
-    try {
-      const relayAccount = await lightconeGetAccount(window.wallet.address);
-
-      const result = await window.wallet.generateKeyPair(
-        exchangeAddress,
-        relayAccount.keyNonce
-      );
-
-      const { keyPair, error } = result;
-
-      if (error) {
-        throw new Error(error.message);
+      if (window.wallet && window.wallet.walletType === 'WalletConnect') {
+        (async () => {
+          try {
+            await window.ethereum.close();
+            logoutAll();
+          } catch (error) {
+            console.log(error);
+          }
+        })();
+      } else if (window.wallet && window.wallet.walletType === 'MetaMask') {
+        logoutAll();
       }
-
-      if (
-        !!keyPair &&
-        !!keyPair.secretKey &&
-        keyPair.publicKeyX === relayAccount.publicKeyX &&
-        keyPair.publicKeyY === relayAccount.publicKeyY
-      ) {
-        const state = relayAccount.frozen ? RESETTING : LOGGED_IN;
-        updateAccount({
-          ...account, // todo: switch to this
-          ...relayAccount,
-          accountKey: keyPair.secretKey,
-          state,
-        });
-
-        //   _this.onClose();
-      } else {
-        //   _this.setState({
-        //     loading: false,
-        //     showError: relayAccount.keyNonce === account.keyNonce,
-        //   });
-
-        updateAccount({
-          ...account,
-          publicKeyX: relayAccount.publicKeyX,
-          publicKeyY: relayAccount.publicKeyY,
-          keyNonce: relayAccount.keyNonce,
-        });
-      }
-    } catch (err) {
-      console.log(err);
-      // notifyError(<I s="LoginFailedNotification" />, this.props.theme);
-      // _this.setState({
-      //   loading: false,
-      //   showError: false,
-      // });
-    }
+    });
   };
 
   let session;
   if (isLoggedIn) {
     session = isMobile ? (
-      <ETHAvatar {...{ address }} diameter={22} />
+      <IconButton color="secondary" onClick={disconnect}>
+        <ETHAvatar {...{ address }} diameter={22} />
+      </IconButton>
     ) : (
       <>
         <div className={classes.account}>{address}</div>
-        <Button color="secondary" onClick={connect}>
-          Connect to Loopring
-        </Button>
         <Button color="secondary" onClick={disconnect}>
-          Sign Out
+          Disconnect
         </Button>
       </>
-    );
-  } else {
-    session = isMobile ? (
-      <IconButton onClick={connect}>
-        <UserIcon />
-      </IconButton>
-    ) : (
-      <Button color="secondary" onClick={activateWallet}>
-        Connect Account
-      </Button>
     );
   }
 

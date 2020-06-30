@@ -19,7 +19,6 @@ export const MetaMaskReducer = (state = initialState, action) => {
       if (startConnecting === true) {
         newReferenceCount = state.referenceCount + 1;
       }
-      console.log(newReferenceCount);
       return {
         ...state,
         startConnecting,

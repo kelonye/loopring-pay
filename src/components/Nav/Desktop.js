@@ -25,7 +25,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function Component({ locationPathName, match, account }) {
+function Component({ locationPathName, match }) {
   const classes = useStyles();
 
   let activeTab = ROUTES.indexOf(locationPathName);
@@ -38,9 +38,7 @@ function Component({ locationPathName, match, account }) {
   return (
     <div className={clsx('flex flex--justify-center', classes.container)}>
       <Paper className={clsx(classes.paper)}>
-        {!account ? (
-          <SetupAccount />
-        ) : (
+        <SetupAccount>
           <>
             <div
               className={clsx(
@@ -67,17 +65,16 @@ function Component({ locationPathName, match, account }) {
               <Switcher />
             </div>
           </>
-        )}
+        </SetupAccount>
       </Paper>
     </div>
   );
 }
 
 export default withRouter(
-  connect(({ wallet: { account } }, { match }) => {
+  connect((s, { match }) => {
     return {
       locationPathName: window.location.pathname,
-      account,
     };
   }, mapDispatchToProps)(Component)
 );

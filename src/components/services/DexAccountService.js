@@ -211,7 +211,6 @@ class DexAccountService extends React.Component {
           publicKeyX: account.publicKeyX,
           publicKeyY: account.publicKeyY,
         };
-        console.log(data);
         try {
           const apiKey = await getApiKey(data, signed.signature);
           updateAccount({

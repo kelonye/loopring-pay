@@ -19,9 +19,7 @@ function Component({ locationPathName, account }) {
 
   return (
     <div className={clsx('flex flex--column', classes.container)}>
-      {!account ? (
-        <SetupAccount />
-      ) : (
+      <SetupAccount>
         <>
           <div className="mobile-nav-content">
             <Switcher />
@@ -47,7 +45,7 @@ function Component({ locationPathName, account }) {
             })}
           </div>
         </>
-      )}
+      </SetupAccount>
     </div>
   );
 }

@@ -19,7 +19,7 @@ export * from './DexAccount';
 // export * from  './market/CurrentMarket';
 // export * from  './market/Ticker';
 // export * from  './market/OrderBook';
-// export * from './MyAccountPage';
+export * from './MyAccountPage';
 
 // custom
 export * from './custom/data';
