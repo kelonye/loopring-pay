@@ -1,6 +1,6 @@
 | Desktop                                                    | Mobile                                                    |
 | ---------------------------------------------------------- | --------------------------------------------------------- |
-| ![](https://loopring-pay.surge.sh/screenshots/desktop.png) | ![](https://loopring-pay.surge.sh/screenshots/mobile.png) |
+| ![](https://loopring-pay.surge.sh/screenshots/desktop.png) | ![](https://loopring-pay.surge.sh/screenshots/mobile.jpg) |
 
 # Responsive Loopring Pay App
 

@@ -5,6 +5,7 @@ import { Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
 import { isDarkSelector } from 'selectors/theme';
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles(theme => ({
   container: props => ({
@@ -80,15 +81,21 @@ const Component = ({ balances, balanceOnEthereumDict, isDark }) => {
           </div>
 
           <div className={clsx('flex flex--align-center', classes.actions)}>
-            <Button size="small" color="secondary">
-              Transfer
-            </Button>
-            <Button size="small" color="default">
-              Deposit
-            </Button>
-            <Button size="small" color="default">
-              Withdraw
-            </Button>
+            <Link to={'/balances/transfer'}>
+              <Button size="small" color="secondary">
+                Transfer
+              </Button>
+            </Link>
+            <Link to={'/balances/deposit'}>
+              <Button size="small" color="default">
+                Deposit
+              </Button>
+            </Link>
+            <Link to={'/balances/withdraw'}>
+              <Button size="small" color="default">
+                Withdraw
+              </Button>
+            </Link>
           </div>
         </div>
       ))}
