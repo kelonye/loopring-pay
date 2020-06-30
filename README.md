@@ -4,6 +4,8 @@
 
 # Responsive Loopring Pay App
 
+Tryout the frontend at https://loopring-pay.surge.sh.
+
 ### Getting started
 
 Watch and build client assets with:
