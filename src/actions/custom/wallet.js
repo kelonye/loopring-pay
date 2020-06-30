@@ -1,4 +1,5 @@
 import { ACTION_TYPE_UPDATE_WALLET } from 'config';
+import { fetchWalletBalance } from 'modals/components/utils';
 
 export function activateWallet() {
   return async (dispatch, getState) => {
@@ -25,5 +26,38 @@ export function updateWallet(payload) {
 export function customUpdateAccount(account) {
   return async (dispatch, getState) => {
     dispatch(updateWallet({ account }));
+  };
+}
+
+export function loadEthereumBalances() {
+  return async (dispatch, getState) => {
+    const {
+      wallet: { loadedEthereumBalances },
+      dexAccount: {
+        account: { address },
+      },
+      exchange: { tokens },
+    } = getState();
+    if (loadedEthereumBalances) {
+      return;
+    }
+
+    dispatch(updateWallet({ isLoadingEthereumBalances: true }));
+    const balanceOnEthereumDict = {};
+    for (let i = 0; i < tokens.length; i++) {
+      const token = tokens[i];
+      balanceOnEthereumDict[token.symbol] = await fetchWalletBalance(
+        address,
+        token.symbol,
+        tokens
+      );
+    }
+    dispatch(
+      updateWallet({
+        balanceOnEthereumDict,
+        isLoadingEthereumBalances: false,
+        loadedEthereumBalances: true,
+      })
+    );
   };
 }

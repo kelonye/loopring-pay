@@ -6,7 +6,7 @@ import clsx from 'clsx';
 import { Paper, Tabs, Tab } from '@material-ui/core';
 import { withRouter } from 'react-router-dom';
 import { Switcher, ROUTE_LABELS, ROUTES } from './routes';
-import { history } from 'utils/store';
+// import { history } from 'utils/store';
 import SetupAccount from 'components/SetupAccount';
 
 const useStyles = makeStyles(theme => ({
@@ -32,7 +32,10 @@ function Component({ locationPathName, match }) {
   activeTab = -1 === activeTab ? 0 : activeTab;
 
   const handleActiveTabChange = (event, newValue) => {
-    history.push(`${newValue ? ROUTES[newValue] : ''}`);
+    const hash = `${newValue ? ROUTES[newValue] : ''}`.replace('/', '');
+    // console.log(hash);
+    // history.push({ hash });
+    window.location.hash = hash;
   };
 
   return (
@@ -74,7 +77,7 @@ function Component({ locationPathName, match }) {
 export default withRouter(
   connect((s, { match }) => {
     return {
-      locationPathName: window.location.pathname,
+      locationPathName: window.location.hash.replace('#/', '/'),
     };
   }, mapDispatchToProps)(Component)
 );

@@ -8,6 +8,7 @@ import {
   TableRow,
   Button,
 } from '@material-ui/core';
+import { Link } from 'react-router-dom';
 
 export default ({ balances, balanceOnEthereumDict }) => (
   <TableContainer>
@@ -37,15 +38,21 @@ export default ({ balances, balanceOnEthereumDict }) => (
             <TableCell align="right">{balance.availableInAssetPanel}</TableCell>
             <TableCell align="right">
               <div className="flex">
-                <Button size="small" color="secondary">
-                  Transfer
-                </Button>
-                <Button size="small" color="default">
-                  Deposit
-                </Button>
-                <Button size="small" color="default">
-                  Withdraw
-                </Button>
+                <Link to={'/balances/transfer'}>
+                  <Button size="small" color="secondary">
+                    Transfer
+                  </Button>
+                </Link>
+                <Link to={'/balances/deposit'}>
+                  <Button size="small" color="default">
+                    Deposit
+                  </Button>
+                </Link>
+                <Link to={'/balances/withdraw'}>
+                  <Button size="small" color="default">
+                    Withdraw
+                  </Button>
+                </Link>
               </div>
             </TableCell>
           </TableRow>

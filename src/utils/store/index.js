@@ -3,7 +3,7 @@ import thunk from 'redux-thunk';
 import reducer from 'reducers';
 import * as asyncInitialState from 'redux-async-initial-state';
 import loadStore from './load';
-import { createBrowserHistory } from 'history';
+import { createHashHistory } from 'history';
 
 const storeCreator = asyncInitialState.middleware(getState =>
   loadStore.load(getState)
@@ -11,7 +11,7 @@ const storeCreator = asyncInitialState.middleware(getState =>
 
 export const basename = '/';
 
-export const history = createBrowserHistory({ basename });
+export const history = createHashHistory({ basename });
 
 export const store = createStore(
   reducer(history),

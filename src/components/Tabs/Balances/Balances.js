@@ -4,19 +4,22 @@ import * as mapDispatchToProps from 'actions';
 import Desktop from './BalancesDesktop';
 import Mobile from './BalancesMobile';
 import Loader from 'components/Loader';
-import { fetchWalletBalance } from 'modals/components/utils';
+// import { fetchWalletBalance } from 'modals/components/utils';
 // import { add } from 'lodash';
+import { Route, Switch } from 'react-router-dom';
+import Transfer from 'components/Tabs/Transfer';
+import Deposit from 'components/Tabs/Deposit';
+import Withdraw from 'components/Tabs/Withdraw';
 
 const Component = ({
   tokens,
   address,
   isMobile,
   balances: balancesOnLoopringList,
+  balanceOnEthereumDict,
+  loadEthereumBalances,
+  isLoadingEthereumBalances,
 }) => {
-  const [balanceOnEthereumDict, setBalanceOnEthereumDict] = React.useState({});
-  const [isBalancesLoading, setIsBalancesLoading] = React.useState({});
-  // const [searchInput, setSearchInput] = React.useState({});
-
   const balances = tokens.map(
     token =>
       balancesOnLoopringList.find(ba => ba.token.tokenId === token.tokenId) || {
@@ -27,32 +30,13 @@ const Component = ({
       }
   );
 
-  const loadBalances = async () => {
-    try {
-      setIsBalancesLoading(true);
-      const balanceOnEthereumDict = {};
-      for (let i = 0; i < tokens.length; i++) {
-        const token = tokens[i];
-        balanceOnEthereumDict[token.symbol] = await fetchWalletBalance(
-          address,
-          token.symbol,
-          tokens
-        );
-      }
-      setBalanceOnEthereumDict(balanceOnEthereumDict);
-    } catch (error) {
-    } finally {
-      setIsBalancesLoading(false);
-    }
-  };
-
   React.useEffect(() => {
-    loadBalances();
+    loadEthereumBalances();
   }, [address]); // eslint-disable-line
 
   return (
     <div>
-      {isBalancesLoading ? (
+      {isLoadingEthereumBalances ? (
         <Loader />
       ) : (
         <div>
@@ -61,6 +45,12 @@ const Component = ({
           ) : (
             <Desktop {...{ balances, balanceOnEthereumDict }} />
           )}
+
+          <Switch>
+            <Route exact path={'/balances/transfer'} component={Transfer} />
+            <Route exact path={'/balances/deposit'} component={Deposit} />
+            <Route exact path={'/balances/withdraw'} component={Withdraw} />
+          </Switch>
         </div>
       )}
     </div>
@@ -70,7 +60,11 @@ const Component = ({
 export default connect(
   ({
     app: { isMobile },
-    wallet: { account: address },
+    wallet: {
+      account: address,
+      balanceOnEthereumDict,
+      isLoadingEthereumBalances,
+    },
     dexAccount,
     balances: { balances },
     exchange,
@@ -82,6 +76,8 @@ export default connect(
       balances,
       exchange,
       tokens: exchange.tokens,
+      balanceOnEthereumDict,
+      isLoadingEthereumBalances,
     };
   },
   mapDispatchToProps

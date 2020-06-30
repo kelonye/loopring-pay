@@ -3,6 +3,7 @@ import { ACTION_TYPE_UPDATE_WALLET } from 'config';
 const DEFAULT_STATE = {
   isLoading: false,
   contracts: {},
+  balanceOnEthereumDict: {},
 };
 
 export default (state = DEFAULT_STATE, action) => {

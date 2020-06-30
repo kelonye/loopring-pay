@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 
 import BalancesIcon from '@material-ui/icons/AccountBalanceWallet';
 import TransfersIcon from '@material-ui/icons/Send';
@@ -11,7 +11,7 @@ import Transfers from 'components/Tabs/Transfers';
 import Deposits from 'components/Tabs/Deposits';
 import Withdrawals from 'components/Tabs/Withdrawals';
 
-export const ROUTES = ['/', '/transfers', '/deposits', '/withdrawls'];
+export const ROUTES = ['/balances', '/transfers', '/deposits', '/withdrawls'];
 
 export const ROUTE_COMPONENTS = [Balances, Transfers, Deposits, Withdrawals];
 
@@ -32,14 +32,9 @@ export const ROUTE_ICONS = [
 export const Switcher = () => (
   <Switch>
     {ROUTES.map((path, i) => (
-      <Route
-        exact
-        key={path}
-        path={`${ROUTES[i]}`}
-        component={ROUTE_COMPONENTS[i]}
-      />
+      <Route key={path} path={`${ROUTES[i]}`} component={ROUTE_COMPONENTS[i]} />
     ))}
 
-    {/*<Route exact path={'/transfer/:token'} component={TransferToken} />*/}
+    <Redirect to={'/balances'} />
   </Switch>
 );

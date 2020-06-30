@@ -3,11 +3,17 @@ import React from 'react';
 import { connect } from 'react-redux';
 import * as mapDispatchToProps from 'actions';
 
-function Component({ children, tokens, dexAccount, fetchMyAccountPage }) {
+function Component({
+  children,
+  tokens,
+  dexAccount,
+  fetchMyAccountPage,
+  loadEthBalances,
+}) {
   const loadInfos = async () => {
     const { accountId, apiKey } = dexAccount.account;
     if (!_.isNil(accountId) && apiKey && tokens.length > 3) {
-      fetchMyAccountPage(accountId, apiKey, tokens);
+      await fetchMyAccountPage(accountId, apiKey, tokens);
     }
   };
 
